@@ -1,7 +1,16 @@
 REPO=$(pwd)
+output () {
+  echo ""
+  echo "================================================="
+  echo "$1"
+  echo "================================================="
+  echo ""
+}
 # -------------- Apt update -------------- 
+output "updating"
 sudo apt update
 # -------------- Install ros Humble -------------- 
+output "Installing ROS Humble"
 # check locale
 sudo apt install locales
 sudo locale-gen en_US en_US.UTF-8
@@ -25,6 +34,7 @@ sudo rosdep init
 rosdep update
 
 # -------------- Install YD Lidar SDK -------------- 
+output "Installing YDLidar SDK"
 mkdir ~/tmp
 cd ~/tmp
 git clone https://github.com/YDLIDAR/YDLidar-SDK.git
@@ -33,7 +43,9 @@ sudo apt install cmake pkg-config
 cmake ..
 make
 sudo make install
+
 # -------------- Pull in repos for mk0_ws -------------- 
+output "Creating MK0 ROS 2 Workspace"
 mkdir ~/mk0_ws
 cd ~/mk0_ws
 mkdir src
@@ -47,16 +59,22 @@ git clone https://github.com/kobuki-base/kobuki_ros.git
 git clone https://github.com/kobuki-base/cmd_vel_mux.git
 
 # -------------- Install udev rules -------------- 
+output "Installing UDEV rules"
 cp ${REPO}/UDEV/* /etc/udev/rules.d/
 sudo udevadm control --reload
 sudo service udev reload
 sudo service udev restart
 
 # -------------- Download maps -------------- 
+output "Copying maps to maps folder"
 mkdir ~/.maps/
 cp ${REPO}/MAPS/* ~/.maps/
 
 # -------------- Download sounds -------------- 
+# output "Copying sounds to sounds folders"
+
+# -------------- Workspace build --------------
+output "Building workspace"
 cd ~/mk0_ws/
 rosdep install --from-paths src --ignore-src -y 
 colcon build --symlink-install
