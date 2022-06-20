@@ -6,6 +6,8 @@ output () {
   echo "================================================="
   echo ""
 }
+output "Getting extending sudo permissions"
+sudo -v
 # -------------- Apt update -------------- 
 output "updating"
 sudo apt update
