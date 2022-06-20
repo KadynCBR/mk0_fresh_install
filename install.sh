@@ -75,6 +75,11 @@ cp ${REPO}/MAPS/* ~/.maps/
 # -------------- Download sounds -------------- 
 # output "Copying sounds to sounds folders"
 
+# -------------- Extra Packages -------------- 
+output "Installing extra ROS packages"
+sudo apt install ros-humble-teleop-twist-joy ros-humble-navigation2 ros-humble-nav2-bringup -y
+sudo apt install ros-humble-turtlebot3* -y
+
 # -------------- Workspace build --------------
 output "Building workspace"
 cd ~/mk0_ws/
