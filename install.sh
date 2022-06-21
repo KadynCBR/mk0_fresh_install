@@ -37,11 +37,14 @@ rosdep update
 
 # -------------- Install YD Lidar SDK -------------- 
 output "Installing YDLidar SDK"
+sudo apt install build-essentials -y
 mkdir ~/tmp
 cd ~/tmp
 git clone https://github.com/YDLIDAR/YDLidar-SDK.git
 cd YDLidar-SDK/
 sudo apt install cmake pkg-config
+mkdir build
+cd build
 cmake ..
 make
 sudo make install
