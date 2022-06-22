@@ -11,8 +11,8 @@ sudo -v
 # -------------- Apt update -------------- 
 output "updating"
 sudo apt update
-# -------------- Install ros Humble -------------- 
-output "Installing ROS Humble"
+# -------------- Install ros foxy -------------- 
+output "Installing ROS foxy"
 # check locale
 sudo apt install locales
 sudo locale-gen en_US en_US.UTF-8
@@ -28,9 +28,9 @@ sudo apt update
 # NOTE: Make sure systemd and udev are upgraded before intalling ros 2.
 sudo apt upgrade -y
 
-sudo apt install ros-humble-ros-base -y
-source /opt/ros/humble/setup.bash
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+sudo apt install ros-foxy-ros-base -y
+source /opt/ros/foxy/setup.bash
+echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
 sudo apt install -y python-rosdep
 sudo rosdep init
 rosdep update
@@ -57,7 +57,7 @@ mkdir src
 cd src
 git clone https://github.com/KadynCBR/ydlidar_ros2_driver.git
 git clone https://github.com/KadynCBR/mk0_ros.git
-# git clone https://github.com/ros2/teleop_twist_joy # This might not be needed cuz humble.
+git clone https://github.com/ros2/teleop_twist_joy # This might not be needed cuz foxy.
 git clone https://github.com/kobuki-base/velocity_smoother.git
 git clone https://github.com/kobuki-base/kobuki_ros_interfaces.git
 git clone https://github.com/kobuki-base/kobuki_ros.git
@@ -81,30 +81,30 @@ cp ${REPO}/MAPS/* ~/.maps/
 
 # -------------- Extra Packages -------------- 
 output "Installing extra ROS packages"
-sudo apt install  ros-humble-teleop-twist-joy \
-                  ros-humble-ros-testing \
-                  ros-humble-joint-state-publisher \
+sudo apt install  ros-foxy-ros-testing \
+                  ros-foxy-joint-state-publisher \
                   python3-rosdep2 \
                   python3-colcon-common-extensions \
-                  ros-humble-rviz2 \
-                  ros-humble-robot-localization \
-                  ros-humble-navigation2 \
-                  ros-humble-nav2-bringup -y
-sudo apt install ros-humble-turtlebot3* -y
+                  ros-foxy-rviz2 \
+                  ros-foxy-robot-localization \
+                  ros-foxy-navigation2 \
+                  ros-foxy-ecl-core \
+                  ros-foxy-nav2-bringup -y
+sudo apt install ros-foxy-turtlebot3* -y
 
 
-# -------------- Grabbing extra packages for builds (These should eventually be released on apt for humble.) -----------------
+# -------------- Grabbing extra packages for builds (These should eventually be released on apt for foxy.) -----------------
 output "Grabbing not-yet-released package dependencies"
 cd ~/mk0_ws/src
-git clone https://github.com/stonier/ecl_tools
-git clone https://github.com/stonier/ecl_core
-git clone https://github.com/stonier/ecl_lite
-git clone https://github.com/stonier/sophus -b release/1.2.x
+# git clone https://github.com/stonier/ecl_tools
+# git clone https://github.com/stonier/ecl_core
+# git clone https://github.com/stonier/ecl_lite
+# git clone https://github.com/stonier/sophus -b release/1.2.x
 
 # -------------- ENV VARS ---------------------
 output "Setting environment variables in bash file"
 echo "export ROS_DOMAIN_ID=21" >> ~/.bashrc
-echo "export ROS_DISTRO=humble" >> ~/.bashrc
+echo "export ROS_DISTRO=foxy" >> ~/.bashrc
 
 # -------------- Workspace build --------------
 output "Building workspace"
