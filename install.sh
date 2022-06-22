@@ -81,7 +81,15 @@ cp ${REPO}/MAPS/* ~/.maps/
 
 # -------------- Extra Packages -------------- 
 output "Installing extra ROS packages"
-sudo apt install ros-humble-teleop-twist-joy ros-humble-joint-state-publisher ros-humble-rviz2 ros-humble-robot-localization ros-humble-navigation2 ros-humble-nav2-bringup -y
+sudo apt install  ros-humble-teleop-twist-joy \
+                  ros-humble-ros-testing \
+                  ros-humble-joint-state-publisher \
+                  python3-rosdep2 \
+                  python3-colcon-common-extensions \
+                  ros-humble-rviz2 \
+                  ros-humble-robot-localization \
+                  ros-humble-navigation2 \
+                  ros-humble-nav2-bringup -y
 sudo apt install ros-humble-turtlebot3* -y
 
 
@@ -91,7 +99,7 @@ cd ~/mk0_ws/src
 git clone https://github.com/stonier/ecl_tools
 git clone https://github.com/stonier/ecl_core
 git clone https://github.com/stonier/ecl_lite
-git clone https://github.com/stonier/sophus
+git clone https://github.com/stonier/sophus -b release/1.2.x
 
 # -------------- ENV VARS ---------------------
 output "Setting environment variables in bash file"
