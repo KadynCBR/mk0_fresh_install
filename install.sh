@@ -19,7 +19,7 @@ sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-sudo apt install curl gnupg lsb-release
+sudo apt install curl gnupg lsb-release -y
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
@@ -42,7 +42,7 @@ mkdir ~/tmp
 cd ~/tmp
 git clone https://github.com/YDLIDAR/YDLidar-SDK.git
 cd YDLidar-SDK/
-sudo apt install cmake pkg-config
+sudo apt install cmake pkg-config -y
 mkdir build
 cd build
 cmake ..
@@ -105,6 +105,12 @@ cd ~/mk0_ws/src
 output "Setting environment variables in bash file"
 echo "export ROS_DOMAIN_ID=21" >> ~/.bashrc
 echo "export ROS_DISTRO=foxy" >> ~/.bashrc
+
+# -------------- Install catmux ---------------
+output "Installing catmux"
+sudo apt install python3-pip -y
+pip install --user catmux
+echo "export PATH=$PATH:~/.local/bin"
 
 # -------------- Workspace build --------------
 output "Building workspace"
